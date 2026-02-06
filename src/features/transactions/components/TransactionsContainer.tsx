@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from 'react';
+import React, { useCallback, useMemo, useState } from 'react';
 import { View, StyleSheet } from 'react-native';
 import { useTransactions } from '../hooks/useTransactions';
 import TransactionsLoader from './TransactionsLoader.skeleton';
@@ -7,6 +7,7 @@ import { FlashList } from '@shopify/flash-list';
 import TransactionsHeader from './TransactionsHeader';
 import { Transaction } from '../../../models/Transaction';
 import TransactionsEmpty from './TransactionsEmpty';
+import TransactionListItem from './TransactionsListItem';
 
 export type TransactionFilter = 'all' | 'income' | 'expenses';
 
@@ -19,27 +20,54 @@ const TransactionsContainer = () => {
     transactions,
     refetchTransactions,
   } = useTransactions(false);
+  const [searchQuery, setSearchQuery] = useState('');
 
   const [activeFilter, setActiveFilter] = useState<TransactionFilter>('all');
 
   const renderItem = ({ item }: { item: Transaction }) => {
     // Placeholder for rendering each transaction item
-    return <View>{/* Render transaction details here */}</View>;
+    return <TransactionListItem {...item} />;
   };
 
   const renderHeader = useCallback(
-    () => <TransactionsHeader activeFilter={activeFilter} />,
+    () => (
+      <TransactionsHeader
+        onSearch={setSearchQuery}
+        activeFilter={activeFilter}
+        onFilterChange={setActiveFilter}
+      />
+    ),
     [activeFilter],
   );
+
+  const filteredTransactions = useMemo(() => {
+    if (!transactions?.data) return [];
+
+    const normalizedQuery = searchQuery.trim().toLowerCase();
+
+    return transactions.data.filter((tx) => {
+      const matchesFilter =
+        activeFilter === 'all' ||
+        (activeFilter === 'income' && tx.amount > 0) ||
+        (activeFilter === 'expenses' && tx.amount < 0);
+
+      const matchesSearch =
+        !normalizedQuery ||
+        tx.merchant?.toLowerCase().includes(normalizedQuery);
+
+      return matchesFilter && matchesSearch;
+    });
+  }, [transactions?.data, activeFilter, searchQuery]);
 
   return (
     <View style={style.container}>
       {isFetching || isLoading ? <TransactionsLoader /> : null}
-      {isError && (
+      {isError && !isLoading && !isFetching && (
         <TransactionsError refetchTransactions={refetchTransactions} />
       )}
-      {isSuccess && !isLoading && (
+      {isSuccess && !isLoading && !isFetching && (
         <FlashList<Transaction>
+          onRefresh={refetchTransactions}
           ListHeaderComponent={renderHeader}
           data={transactions?.data || []}
           renderItem={renderItem}

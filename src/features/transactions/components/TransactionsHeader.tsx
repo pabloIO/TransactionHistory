@@ -1,58 +1,117 @@
-import { Button, Text } from '@rneui/base';
+import { Button, Text, SearchBar } from '@rneui/base';
 import { StyleSheet, View } from 'react-native';
 import { TransactionFilter } from './TransactionsContainer';
+import Icon from '@react-native-vector-icons/material-icons';
+import { useEffect, useRef, useState } from 'react';
 
 type TransactionsHeaderProps = {
   activeFilter: TransactionFilter;
+  onFilterChange: (filter: TransactionFilter) => void;
+  onSearch: (query: string) => void;
 };
 
-const TransactionsHeader = ({ activeFilter }: TransactionsHeaderProps) => {
+const TransactionsHeader = ({
+  activeFilter,
+  onFilterChange,
+  onSearch,
+}: TransactionsHeaderProps) => {
+  const [searchValue, setSearchValue] = useState<string>('');
+  const [isDebouncing, setIsDebouncing] = useState<boolean>(false);
+  const debounceRef = useRef<NodeJS.Timeout | null>(null);
+
+  const handleSearchChange = (text: string) => {
+    if (text === '') {
+      onSearch('');
+      setIsDebouncing(false);
+      return;
+    }
+    setSearchValue(text);
+
+    // user is typing → cancel everything
+    if (debounceRef.current) {
+      clearTimeout(debounceRef.current);
+    }
+    setIsDebouncing(false);
+
+    debounceRef.current = setTimeout(() => {
+      // user stopped typing → show loading
+      setIsDebouncing(true);
+
+      // fake API delay
+      setTimeout(() => {
+        onSearch(text.trim());
+        setIsDebouncing(false);
+      }, 300); // fake backend latency
+    }, 400); // debounce delay
+  };
+
+  useEffect(() => {
+    return () => {
+      if (debounceRef.current) {
+        clearTimeout(debounceRef.current);
+      }
+    };
+  }, []);
+
   return (
-    <View style={style.container}>
-      <Text style={style.balanceTitle}>Balance</Text>
-      <View style={style.balanceContainer}>
-        <Text style={style.balanceAmount}>1,111.1</Text>
-        <Text style={style.balanceCurrency}>USDC</Text>
+    <>
+      <View style={style.container}>
+        <Text style={style.balanceTitle}>Balance</Text>
+        <View style={style.balanceContainer}>
+          <Text style={style.balanceAmount}>1,111.1</Text>
+          <Text style={style.balanceCurrency}>USDC</Text>
+        </View>
+        <View style={style.filterContainer}>
+          <Button
+            size="sm"
+            radius={5}
+            onPress={() => onFilterChange('all')}
+            buttonStyle={[
+              style.filterButton,
+              activeFilter === 'all'
+                ? style.activeFilterButton
+                : style.inactiveFilterButton,
+            ]}
+          >
+            All
+          </Button>
+          <Button
+            size="sm"
+            radius={5}
+            onPress={() => onFilterChange('income')}
+            buttonStyle={[
+              style.filterButton,
+              activeFilter === 'income'
+                ? style.activeFilterButton
+                : style.inactiveFilterButton,
+            ]}
+          >
+            Income
+          </Button>
+          <Button
+            size="sm"
+            radius={5}
+            onPress={() => onFilterChange('expenses')}
+            buttonStyle={[
+              style.filterButton,
+              activeFilter === 'expenses'
+                ? style.activeFilterButton
+                : style.inactiveFilterButton,
+            ]}
+          >
+            Expenses
+          </Button>
+        </View>
       </View>
-      <View style={style.filterContainer}>
-        <Button
-          size="sm"
-          radius={5}
-          buttonStyle={[
-            style.filterButton,
-            activeFilter === 'all'
-              ? style.activeFilterButton
-              : style.inactiveFilterButton,
-          ]}
-        >
-          All
-        </Button>
-        <Button
-          size="sm"
-          radius={5}
-          buttonStyle={[
-            style.filterButton,
-            activeFilter === 'income'
-              ? style.activeFilterButton
-              : style.inactiveFilterButton,
-          ]}
-        >
-          Income
-        </Button>
-        <Button
-          size="sm"
-          radius={5}
-          buttonStyle={[
-            style.filterButton,
-            activeFilter === 'expenses'
-              ? style.activeFilterButton
-              : style.inactiveFilterButton,
-          ]}
-        >
-          Expenses
-        </Button>
-      </View>
-    </View>
+      <SearchBar
+        lightTheme
+        placeholder="Search transactions"
+        value={searchValue}
+        onChangeText={handleSearchChange}
+        showLoading={isDebouncing}
+        searchIcon={<Icon name="search" size={20} color="#000" />}
+      />
+    </>
   );
 };
 
@@ -60,7 +119,7 @@ const style = StyleSheet.create({
   container: {
     flex: 1,
     height: 250,
-    backgroundColor: '#deb9f1',
+    backgroundColor: '#e6e5f8',
     borderEndEndRadius: 10,
     borderEndStartRadius: 10,
     padding: 20,
