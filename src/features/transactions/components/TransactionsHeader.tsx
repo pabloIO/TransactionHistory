@@ -20,17 +20,20 @@ const TransactionsHeader = ({
   const debounceRef = useRef<NodeJS.Timeout | null>(null);
 
   const handleSearchChange = (text: string) => {
-    if (text === '') {
-      onSearch('');
-      setIsDebouncing(false);
-      return;
-    }
     setSearchValue(text);
 
     // user is typing → cancel everything
     if (debounceRef.current) {
       clearTimeout(debounceRef.current);
     }
+
+    if (text === '') {
+      onSearch('');
+      setIsDebouncing(false);
+      setSearchValue('');
+      return;
+    }
+
     setIsDebouncing(false);
 
     debounceRef.current = setTimeout(() => {

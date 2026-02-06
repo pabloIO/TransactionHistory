@@ -1,17 +1,17 @@
 import { Image, Text } from '@rneui/base';
-import { StyleSheet, TouchableOpacity } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 
 const TransactionsEmpty = () => {
   return (
-    <TouchableOpacity style={style.container}>
+    <View style={style.container}>
       <Text h4 style={style.title}>
-        No results for your search. Please try again later.
+        No results for your search. Please try again with other keywords.
       </Text>
       <Image
         source={require('../../../assets/images/wallet-no-results.png')}
         style={style.image}
       />
-    </TouchableOpacity>
+    </View>
   );
 };
 
@@ -20,6 +20,7 @@ const style = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
+    marginTop: 20,
   },
   image: {
     width: 250,

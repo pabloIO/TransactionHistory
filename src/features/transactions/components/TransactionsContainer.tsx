@@ -69,7 +69,7 @@ const TransactionsContainer = () => {
         <FlashList<Transaction>
           onRefresh={refetchTransactions}
           ListHeaderComponent={renderHeader}
-          data={transactions?.data || []}
+          data={filteredTransactions || []}
           renderItem={renderItem}
           keyExtractor={(item: Transaction) => item.id}
           ListEmptyComponent={TransactionsEmpty}
