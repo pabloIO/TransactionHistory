@@ -1,97 +1,117 @@
-This is a new [**React Native**](https://reactnative.dev) project, bootstrapped using [`@react-native-community/cli`](https://github.com/react-native-community/cli).
+# Transactions History App by Pablo Montes Jordan
 
-# Getting Started
+This project shows a UI of a Transactions History app made with React Native CLI
 
-> **Note**: Make sure you have completed the [Set Up Your Environment](https://reactnative.dev/docs/set-up-your-environment) guide before proceeding.
+## Setup & Installation
 
-## Step 1: Start Metro
+To install the project and run it locally do the following steps:
 
-First, you will need to run **Metro**, the JavaScript build tool for React Native.
-
-To start the Metro dev server, run the following command from the root of your React Native project:
-
-```sh
-# Using npm
-npm start
-
-# OR using Yarn
-yarn start
+```bash
+git clone https://github.com/pabloIO/TransactionHistory.git
+cd TransactionsHistory
 ```
 
-## Step 2: Build and run your app
+Then install NPM dependencies:
 
-With Metro running, open a new terminal window/pane from the root of your React Native project, and use one of the following commands to build and run your Android or iOS app:
-
-### Android
-
-```sh
-# Using npm
-npm run android
-
-# OR using Yarn
-yarn android
+```bash
+npm install
 ```
 
-### iOS
+For iOS install CocoaPods dependencies:
 
-For iOS, remember to install CocoaPods dependencies (this only needs to be run on first clone or after updating native deps).
-
-The first time you create a new project, run the Ruby bundler to install CocoaPods itself:
-
-```sh
-bundle install
-```
-
-Then, and every time you update your native dependencies, run:
-
-```sh
+```bash
+cd ios
 bundle exec pod install
 ```
 
-For more information, please visit [CocoaPods Getting Started guide](https://guides.cocoapods.org/using/getting-started.html).
+## Run the app
 
-```sh
-# Using npm
-npm run ios
+Once you have all your dependencies installed run the project, execute the following command from the root folder:
 
-# OR using Yarn
-yarn ios
+```bash
+npx react-native run-ios
+npx react-native run-android
 ```
 
-If everything is set up correctly, you should see your new app running in the Android Emulator, iOS Simulator, or your connected device.
+## ⚠️ WARNING
 
-This is one way to run your app — you can also build it directly from Android Studio or Xcode.
+To ensure the best possible experience using the app, use the Light Theme both on iOS and Android, next versions of the app will have theme support.
 
-## Step 3: Modify your app
+## Mental model to build this project
 
-Now that you have successfully run the app, let's make changes!
+1. Read and understand requirements, based on these, check all dependencies that will be neccesary
+2. Define what architecture to use
+3. Look for inspiration in UI mockups
+4. Start coding🔥
 
-Open `App.tsx` in your text editor of choice and make some changes. When you save, your app will automatically update and reflect these changes — this is powered by [Fast Refresh](https://reactnative.dev/docs/fast-refresh).
+### What architecture?
 
-When you want to forcefully reload, for example to reset the state of your app, you can perform a full reload:
+The file architecture is defined by the Feature based Architecture, the main reason for choosing this architecture is because is comprensible for any developer or reviewer and can scale as the project grows, I think it's better to think about scaling first because all software projects tends to grow it's codebase and can get messy in the future.
 
-- **Android**: Press the <kbd>R</kbd> key twice or select **"Reload"** from the **Dev Menu**, accessed via <kbd>Ctrl</kbd> + <kbd>M</kbd> (Windows/Linux) or <kbd>Cmd ⌘</kbd> + <kbd>M</kbd> (macOS).
-- **iOS**: Press <kbd>R</kbd> in iOS Simulator.
+### Design
 
-## Congratulations! :tada:
+The mockup for the UI was inspired using this [design](https://dribbble.com/shots/20257091-Wallet-App-Exploration), this accelerates development by not wasting time thinking about design.
 
-You've successfully run and modified your React Native App. :partying_face:
+### Fake API strategy
 
-### Now what?
+The approach I took to get the data, was creating a local JSON file with 50 items taking the interface object provided:
 
-- If you want to add this new React Native code to an existing application, check out the [Integration guide](https://reactnative.dev/docs/integration-with-existing-apps).
-- If you're curious to learn more about React Native, check out the [docs](https://reactnative.dev/docs/getting-started).
+```javascript
+export interface Transaction {
+  id: string;
+  merchant: string; // e.g., "Starbucks", "Direct Deposit"
+  amount: number; // positive for income, negative for expenses
+  date: string; // ISO 8601 format
+  category: string; // e.g., "Food & Drink", "Income", "Shopping"
+  type: 'income' | 'expense';
+}
+```
 
-# Troubleshooting
+Create a function `transactionApi` that will simulate an API call using a `timeOut`, to simulate the error, in the 25% of cases will show an intentional error and also accepts a `forceError` to respond only errors.
 
-If you're having issues getting the above steps to work, see the [Troubleshooting](https://reactnative.dev/docs/troubleshooting) page.
+### Coding logic
 
-# Learn More
+Then start to build the layout, implement the Skeleton feature because the UI library I choose, `React Native Elements` had this feature.
 
-To learn more about React Native, take a look at the following resources:
+Then used `React Native Query` to handle all API states needed: `isLoading`, `isFetching`, `isError`, `isSuccess`, `data`, `refetch`, encapsulating all this logic in a custom hook `useTransactions` to return this data to the main component `TransactionsContainer`
 
-- [React Native Website](https://reactnative.dev) - learn more about React Native.
-- [Getting Started](https://reactnative.dev/docs/environment-setup) - an **overview** of React Native and how setup your environment.
-- [Learn the Basics](https://reactnative.dev/docs/getting-started) - a **guided tour** of the React Native **basics**.
-- [Blog](https://reactnative.dev/blog) - read the latest official React Native **Blog** posts.
-- [`@facebook/react-native`](https://github.com/facebook/react-native) - the Open Source; GitHub **repository** for React Native.
+The list used in this case was `FlashList` for its performance. Then create a Header and add it to the HeaderComponent in the list, that will show the Balance of the user according to the mockup. Add two buttons that will be the filters and a search bar under the header, the search filters based on the `merchant` variable.
+
+Add the logic to filter the transactions list results based on the `type` variable and search query, applying a debouncing function.
+
+Then create a ListItem component to render each row, create a helper function named `formatTransactionDate` to format the date in the UI, and finally glue it to the FlashList.
+
+After all of this, I had to debug:
+
+- When the search query is written and a filter is applied, the text query was deleted, so the `searchValue` state variable that was inside Header component, the solution was to lift up the searchValue state to the TransctionsContainer to avoid this issue.
+- When the app reloaded, the Header was being showed at the same time as the skeleton, so I added conditions to both component renders. The same with the Error state.
+
+Finally create tests to test the `formatTransactionDate` and `fetchTransactions` functions with `jest`.
+
+### Trade-offs
+
+- Header state lifted vs local state: Because the header can be remounted due to list animations, I lifted only the critical state that must persist
+- Animations correctness over flashiness: I limited animations to meaningful state transitions to avoid conflicts with list virtualization
+- Filtering on the client (not server-driven): For the expected dataset size, client-side filtering provided better UX with minimal complexity
+
+### What can be improved with more time
+
+- Infinite scroll feature to enhance the performance of the list, this would need a real API
+- API Endpoints that would handle `search` and `filters`
+- Enhance the animations to get a better experience
+- More tests on functions and also components
+- Check what states can be better collocated
+- Optimizations using `useCallback` and `useMemo/memo`
+- Theme config
+- Navigation logic and more features
+
+---
+
+LOOM HELP:
+Walk through one architectural decision — why did you structure things this way? I like to work with the feature based architecture in the case the project gets more complex, I think its always a good option having in mind this can happen, and actually implementing its not hard, only requires organization
+
+Show the feature working — happy path, filters, edge cases: show an edge case when you type in the search bar and selecting another filter, first the query text dissapeared, but then i lift the state up to the container component and not having this issue
+
+One trade-off: What did you choose between, and why? i implemented the re animated to show an animation when the list changes, the first approach that was implemented in each ListItem, was working well at beggining, but when I hit the scroll, i saw a flickering that was looking really bad in each item, so i decided to take out and apply the animation to the whole flash list, because if i would try to improve the behavior I would need more time, and I think the animation werent so neccesary to take much time on it
+
+What would you ask before shipping this to production? how would we implement CI/CD, add navigation logic and other features, working with a real API, because if its just this plain screen, probably the stores would reject our project because its only a frontend without any other functionality, given that is fintech project, we would also need to comply certain policies from app store and google play,
