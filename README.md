@@ -52,6 +52,8 @@ The file architecture is defined by the Feature based Architecture, the main rea
 
 The mockup for the UI was inspired using this [design](https://dribbble.com/shots/20257091-Wallet-App-Exploration), this accelerates development by not wasting time thinking about design.
 
+I also used AI to create images for the Loading and Error states.
+
 ### Fake API strategy
 
 The approach I took to get the data, was creating a local JSON file with 50 items taking the interface object provided:
@@ -104,14 +106,3 @@ Finally create tests to test the `formatTransactionDate` and `fetchTransactions`
 - Optimizations using `useCallback` and `useMemo/memo`
 - Theme config
 - Navigation logic and more features
-
----
-
-LOOM HELP:
-Walk through one architectural decision — why did you structure things this way? I like to work with the feature based architecture in the case the project gets more complex, I think its always a good option having in mind this can happen, and actually implementing its not hard, only requires organization
-
-Show the feature working — happy path, filters, edge cases: show an edge case when you type in the search bar and selecting another filter, first the query text dissapeared, but then i lift the state up to the container component and not having this issue
-
-One trade-off: What did you choose between, and why? i implemented the re animated to show an animation when the list changes, the first approach that was implemented in each ListItem, was working well at beggining, but when I hit the scroll, i saw a flickering that was looking really bad in each item, so i decided to take out and apply the animation to the whole flash list, because if i would try to improve the behavior I would need more time, and I think the animation werent so neccesary to take much time on it
-
-What would you ask before shipping this to production? how would we implement CI/CD, add navigation logic and other features, working with a real API, because if its just this plain screen, probably the stores would reject our project because its only a frontend without any other functionality, given that is fintech project, we would also need to comply certain policies from app store and google play,
