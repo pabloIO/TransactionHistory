@@ -73,6 +73,7 @@ const TransactionsContainer = () => {
           renderItem={renderItem}
           keyExtractor={(item: Transaction) => item.id}
           ListEmptyComponent={TransactionsEmpty}
+          estimatedItemSize={72}
         />
       )}
     </View>

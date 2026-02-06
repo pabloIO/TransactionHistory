@@ -1,9 +1,10 @@
 import { Image, Text } from '@rneui/base';
-import { StyleSheet, View } from 'react-native';
+import { StyleSheet } from 'react-native';
+import Animated, { FadeIn } from 'react-native-reanimated';
 
 const TransactionsEmpty = () => {
   return (
-    <View style={style.container}>
+    <Animated.View entering={FadeIn} style={style.container}>
       <Text h4 style={style.title}>
         No results for your search. Please try again with other keywords.
       </Text>
@@ -11,7 +12,7 @@ const TransactionsEmpty = () => {
         source={require('../../../assets/images/wallet-no-results.png')}
         style={style.image}
       />
-    </View>
+    </Animated.View>
   );
 };
 
