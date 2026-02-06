@@ -9,7 +9,7 @@ type TransactionsErrorProps = {
 const TransactionsError = ({ refetchTransactions }: TransactionsErrorProps) => {
   return (
     <TouchableOpacity style={style.container} onPress={refetchTransactions}>
-      <Animated.View entering={FadeIn}>
+      <Animated.View entering={FadeIn} style={style.container}>
         <Text h4 style={style.title}>
           Oops! Something went wrong. Please try again later.
         </Text>

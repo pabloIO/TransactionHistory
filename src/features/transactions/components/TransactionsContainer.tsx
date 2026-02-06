@@ -1,4 +1,4 @@
-import React, { useCallback, useMemo, useState } from 'react';
+import React, { useMemo, useState } from 'react';
 import { View, StyleSheet } from 'react-native';
 import { useTransactions } from '../hooks/useTransactions';
 import TransactionsLoader from './TransactionsLoader.skeleton';
@@ -8,6 +8,7 @@ import TransactionsHeader from './TransactionsHeader';
 import { Transaction } from '../../../models/Transaction';
 import TransactionsEmpty from './TransactionsEmpty';
 import TransactionListItem from './TransactionsListItem';
+import Animated, { FadeIn, FadeOut } from 'react-native-reanimated';
 
 export type TransactionFilter = 'all' | 'income' | 'expenses';
 
@@ -21,23 +22,22 @@ const TransactionsContainer = () => {
     refetchTransactions,
   } = useTransactions(false);
   const [searchQuery, setSearchQuery] = useState('');
+  const [searchValue, setSearchValue] = useState('');
 
   const [activeFilter, setActiveFilter] = useState<TransactionFilter>('all');
 
   const renderItem = ({ item }: { item: Transaction }) => {
-    // Placeholder for rendering each transaction item
     return <TransactionListItem {...item} />;
   };
 
-  const renderHeader = useCallback(
-    () => (
-      <TransactionsHeader
-        onSearch={setSearchQuery}
-        activeFilter={activeFilter}
-        onFilterChange={setActiveFilter}
-      />
-    ),
-    [activeFilter],
+  const renderHeader = (
+    <TransactionsHeader
+      activeFilter={activeFilter}
+      onFilterChange={setActiveFilter}
+      searchValue={searchValue}
+      onSearchValueChange={setSearchValue}
+      onSearch={setSearchQuery}
+    />
   );
 
   const filteredTransactions = useMemo(() => {
@@ -66,15 +66,21 @@ const TransactionsContainer = () => {
         <TransactionsError refetchTransactions={refetchTransactions} />
       )}
       {isSuccess && !isLoading && !isFetching && (
-        <FlashList<Transaction>
-          onRefresh={refetchTransactions}
-          ListHeaderComponent={renderHeader}
-          data={filteredTransactions || []}
-          renderItem={renderItem}
-          keyExtractor={(item: Transaction) => item.id}
-          ListEmptyComponent={TransactionsEmpty}
-          estimatedItemSize={72}
-        />
+        <Animated.View
+          key={`${activeFilter}-${searchQuery}`}
+          entering={FadeIn}
+          exiting={FadeOut}
+          style={style.container}
+        >
+          <FlashList<Transaction>
+            onRefresh={refetchTransactions}
+            ListHeaderComponent={renderHeader}
+            data={filteredTransactions || []}
+            renderItem={renderItem}
+            keyExtractor={(item: Transaction) => item.id}
+            ListEmptyComponent={TransactionsEmpty}
+          />
+        </Animated.View>
       )}
     </View>
   );

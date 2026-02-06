@@ -8,19 +8,22 @@ type TransactionsHeaderProps = {
   activeFilter: TransactionFilter;
   onFilterChange: (filter: TransactionFilter) => void;
   onSearch: (query: string) => void;
+  searchValue: string;
+  onSearchValueChange: (value: string) => void;
 };
 
 const TransactionsHeader = ({
   activeFilter,
   onFilterChange,
   onSearch,
+  searchValue,
+  onSearchValueChange,
 }: TransactionsHeaderProps) => {
-  const [searchValue, setSearchValue] = useState<string>('');
   const [isDebouncing, setIsDebouncing] = useState<boolean>(false);
   const debounceRef = useRef<NodeJS.Timeout | null>(null);
 
   const handleSearchChange = (text: string) => {
-    setSearchValue(text);
+    onSearchValueChange(text);
 
     // user is typing → cancel everything
     if (debounceRef.current) {
@@ -30,7 +33,6 @@ const TransactionsHeader = ({
     if (text === '') {
       onSearch('');
       setIsDebouncing(false);
-      setSearchValue('');
       return;
     }
 
