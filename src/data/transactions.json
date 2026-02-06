@@ -1,0 +1,406 @@
+[
+  {
+    "id": "t1",
+    "merchant": "Direct Deposit",
+    "amount": 2800,
+    "date": "2025-01-01T08:00:00Z",
+    "category": "Income",
+    "type": "income"
+  },
+  {
+    "id": "t2",
+    "merchant": "Apartment Rent",
+    "amount": -1200,
+    "date": "2025-01-01T09:00:00Z",
+    "category": "Housing",
+    "type": "expense"
+  },
+  {
+    "id": "t3",
+    "merchant": "Starbucks",
+    "amount": -6.45,
+    "date": "2025-01-02T10:12:00Z",
+    "category": "Food & Drink",
+    "type": "expense"
+  },
+  {
+    "id": "t4",
+    "merchant": "Uber",
+    "amount": -18.9,
+    "date": "2025-01-02T18:40:00Z",
+    "category": "Transportation",
+    "type": "expense"
+  },
+  {
+    "id": "t5",
+    "merchant": "Spotify",
+    "amount": -9.99,
+    "date": "2025-01-03T00:00:00Z",
+    "category": "Subscriptions",
+    "type": "expense"
+  },
+  {
+    "id": "t6",
+    "merchant": "Amazon",
+    "amount": -72.35,
+    "date": "2025-01-03T14:21:00Z",
+    "category": "Shopping",
+    "type": "expense"
+  },
+  {
+    "id": "t7",
+    "merchant": "McDonald's",
+    "amount": -11.2,
+    "date": "2025-01-04T12:05:00Z",
+    "category": "Food & Drink",
+    "type": "expense"
+  },
+  {
+    "id": "t8",
+    "merchant": "Gym Membership",
+    "amount": -45,
+    "date": "2025-01-04T07:00:00Z",
+    "category": "Health & Fitness",
+    "type": "expense"
+  },
+  {
+    "id": "t9",
+    "merchant": "Electric Company",
+    "amount": -95.6,
+    "date": "2025-01-05T09:00:00Z",
+    "category": "Utilities",
+    "type": "expense"
+  },
+  {
+    "id": "t10",
+    "merchant": "Water Utility",
+    "amount": -38.4,
+    "date": "2025-01-05T09:10:00Z",
+    "category": "Utilities",
+    "type": "expense"
+  },
+
+  {
+    "id": "t11",
+    "merchant": "Netflix",
+    "amount": -15.49,
+    "date": "2025-01-06T00:00:00Z",
+    "category": "Subscriptions",
+    "type": "expense"
+  },
+  {
+    "id": "t12",
+    "merchant": "Apple App Store",
+    "amount": -4.99,
+    "date": "2025-01-06T15:33:00Z",
+    "category": "Subscriptions",
+    "type": "expense"
+  },
+  {
+    "id": "t13",
+    "merchant": "Walmart",
+    "amount": -143.28,
+    "date": "2025-01-07T17:55:00Z",
+    "category": "Groceries",
+    "type": "expense"
+  },
+  {
+    "id": "t14",
+    "merchant": "Gas Station",
+    "amount": -54.1,
+    "date": "2025-01-07T08:20:00Z",
+    "category": "Transportation",
+    "type": "expense"
+  },
+  {
+    "id": "t15",
+    "merchant": "Freelance Client",
+    "amount": 650,
+    "date": "2025-01-08T11:00:00Z",
+    "category": "Income",
+    "type": "income"
+  },
+  {
+    "id": "t16",
+    "merchant": "Transfer from Savings",
+    "amount": 300,
+    "date": "2025-01-09T10:00:00Z",
+    "category": "Transfer",
+    "type": "income"
+  },
+  {
+    "id": "t17",
+    "merchant": "Target",
+    "amount": -89.75,
+    "date": "2025-01-09T16:45:00Z",
+    "category": "Shopping",
+    "type": "expense"
+  },
+  {
+    "id": "t18",
+    "merchant": "Starbucks",
+    "amount": -5.95,
+    "date": "2025-01-10T09:40:00Z",
+    "category": "Food & Drink",
+    "type": "expense"
+  },
+  {
+    "id": "t19",
+    "merchant": "Uber Eats",
+    "amount": -27.6,
+    "date": "2025-01-10T19:10:00Z",
+    "category": "Food & Drink",
+    "type": "expense"
+  },
+  {
+    "id": "t20",
+    "merchant": "Internet Provider",
+    "amount": -70,
+    "date": "2025-01-11T09:00:00Z",
+    "category": "Utilities",
+    "type": "expense"
+  },
+
+  {
+    "id": "t21",
+    "merchant": "Coffee Shop",
+    "amount": -4.25,
+    "date": "2025-01-12T08:30:00Z",
+    "category": "Food & Drink",
+    "type": "expense"
+  },
+  {
+    "id": "t22",
+    "merchant": "Pharmacy",
+    "amount": -23.8,
+    "date": "2025-01-12T13:15:00Z",
+    "category": "Health",
+    "type": "expense"
+  },
+  {
+    "id": "t23",
+    "merchant": "Amazon Prime",
+    "amount": -14.99,
+    "date": "2025-01-13T00:00:00Z",
+    "category": "Subscriptions",
+    "type": "expense"
+  },
+  {
+    "id": "t24",
+    "merchant": "Local Restaurant",
+    "amount": -48.5,
+    "date": "2025-01-14T20:00:00Z",
+    "category": "Food & Drink",
+    "type": "expense"
+  },
+  {
+    "id": "t25",
+    "merchant": "Airbnb",
+    "amount": -320,
+    "date": "2025-01-15T18:00:00Z",
+    "category": "Travel",
+    "type": "expense"
+  },
+  {
+    "id": "t26",
+    "merchant": "Salary Bonus",
+    "amount": 500,
+    "date": "2025-01-15T08:00:00Z",
+    "category": "Income",
+    "type": "income"
+  },
+  {
+    "id": "t27",
+    "merchant": "Gas Station",
+    "amount": -46.3,
+    "date": "2025-01-16T08:10:00Z",
+    "category": "Transportation",
+    "type": "expense"
+  },
+  {
+    "id": "t28",
+    "merchant": "Bookstore",
+    "amount": -32.99,
+    "date": "2025-01-16T17:45:00Z",
+    "category": "Education",
+    "type": "expense"
+  },
+  {
+    "id": "t29",
+    "merchant": "Online Course",
+    "amount": -120,
+    "date": "2025-01-17T12:00:00Z",
+    "category": "Education",
+    "type": "expense"
+  },
+  {
+    "id": "t30",
+    "merchant": "Coffee Shop",
+    "amount": -3.95,
+    "date": "2025-01-18T09:00:00Z",
+    "category": "Food & Drink",
+    "type": "expense"
+  },
+
+  {
+    "id": "t31",
+    "merchant": "Refund - Amazon",
+    "amount": 72.35,
+    "date": "2025-01-19T10:30:00Z",
+    "category": "Refund",
+    "type": "income"
+  },
+  {
+    "id": "t32",
+    "merchant": "Clothing Store",
+    "amount": -158.4,
+    "date": "2025-01-20T16:20:00Z",
+    "category": "Shopping",
+    "type": "expense"
+  },
+  {
+    "id": "t33",
+    "merchant": "Cinema",
+    "amount": -24,
+    "date": "2025-01-21T21:00:00Z",
+    "category": "Entertainment",
+    "type": "expense"
+  },
+  {
+    "id": "t34",
+    "merchant": "Bar",
+    "amount": -38.7,
+    "date": "2025-01-22T22:15:00Z",
+    "category": "Entertainment",
+    "type": "expense"
+  },
+  {
+    "id": "t35",
+    "merchant": "Haircut",
+    "amount": -35,
+    "date": "2025-01-23T14:00:00Z",
+    "category": "Personal Care",
+    "type": "expense"
+  },
+  {
+    "id": "t36",
+    "merchant": "Transfer to Savings",
+    "amount": -400,
+    "date": "2025-01-24T10:00:00Z",
+    "category": "Transfer",
+    "type": "expense"
+  },
+  {
+    "id": "t37",
+    "merchant": "Groceries Market",
+    "amount": -126.9,
+    "date": "2025-01-25T11:30:00Z",
+    "category": "Groceries",
+    "type": "expense"
+  },
+  {
+    "id": "t38",
+    "merchant": "Coffee Shop",
+    "amount": -4.1,
+    "date": "2025-01-26T08:50:00Z",
+    "category": "Food & Drink",
+    "type": "expense"
+  },
+  {
+    "id": "t39",
+    "merchant": "Taxi",
+    "amount": -22,
+    "date": "2025-01-27T19:10:00Z",
+    "category": "Transportation",
+    "type": "expense"
+  },
+  {
+    "id": "t40",
+    "merchant": "Concert Tickets",
+    "amount": -180,
+    "date": "2025-01-28T20:00:00Z",
+    "category": "Entertainment",
+    "type": "expense"
+  },
+
+  {
+    "id": "t41",
+    "merchant": "Direct Deposit",
+    "amount": 2800,
+    "date": "2025-02-01T08:00:00Z",
+    "category": "Income",
+    "type": "income"
+  },
+  {
+    "id": "t42",
+    "merchant": "Rent",
+    "amount": -1200,
+    "date": "2025-02-01T09:00:00Z",
+    "category": "Housing",
+    "type": "expense"
+  },
+  {
+    "id": "t43",
+    "merchant": "Electric Company",
+    "amount": -102.3,
+    "date": "2025-02-02T09:00:00Z",
+    "category": "Utilities",
+    "type": "expense"
+  },
+  {
+    "id": "t44",
+    "merchant": "Starbucks",
+    "amount": -6.15,
+    "date": "2025-02-02T10:10:00Z",
+    "category": "Food & Drink",
+    "type": "expense"
+  },
+  {
+    "id": "t45",
+    "merchant": "Online Subscription",
+    "amount": -19.99,
+    "date": "2025-02-03T00:00:00Z",
+    "category": "Subscriptions",
+    "type": "expense"
+  },
+  {
+    "id": "t46",
+    "merchant": "Flight Ticket",
+    "amount": -540,
+    "date": "2025-02-04T12:00:00Z",
+    "category": "Travel",
+    "type": "expense"
+  },
+  {
+    "id": "t47",
+    "merchant": "Hotel",
+    "amount": -680,
+    "date": "2025-02-05T15:00:00Z",
+    "category": "Travel",
+    "type": "expense"
+  },
+  {
+    "id": "t48",
+    "merchant": "ATM Withdrawal",
+    "amount": -200,
+    "date": "2025-02-06T18:00:00Z",
+    "category": "Cash",
+    "type": "expense"
+  },
+  {
+    "id": "t49",
+    "merchant": "Friend Transfer",
+    "amount": 150,
+    "date": "2025-02-07T11:00:00Z",
+    "category": "Transfer",
+    "type": "income"
+  },
+  {
+    "id": "t50",
+    "merchant": "Charity Donation",
+    "amount": -60,
+    "date": "2025-02-08T14:00:00Z",
+    "category": "Donations",
+    "type": "expense"
+  }
+]
