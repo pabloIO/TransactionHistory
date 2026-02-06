@@ -68,6 +68,9 @@ const TransactionsHeader = ({
         </View>
         <View style={style.filterContainer}>
           <Button
+            accessible
+            accessibilityRole="button"
+            accessibilityLabel="Show all transactions"
             size="sm"
             radius={5}
             onPress={() => onFilterChange('all')}
@@ -83,6 +86,9 @@ const TransactionsHeader = ({
           <Button
             size="sm"
             radius={5}
+            accessible
+            accessibilityRole="button"
+            accessibilityLabel="Show income transactions"
             onPress={() => onFilterChange('income')}
             buttonStyle={[
               style.filterButton,
@@ -96,6 +102,9 @@ const TransactionsHeader = ({
           <Button
             size="sm"
             radius={5}
+            accessible
+            accessibilityRole="button"
+            accessibilityLabel="Show expenses transactions"
             onPress={() => onFilterChange('expenses')}
             buttonStyle={[
               style.filterButton,
@@ -109,6 +118,10 @@ const TransactionsHeader = ({
         </View>
       </View>
       <SearchBar
+        accessible
+        accessibilityRole="search"
+        accessibilityLabel="Search transactions"
+        accessibilityHint="Type a merchant name to filter transactions"
         lightTheme
         placeholder="Search transactions"
         value={searchValue}

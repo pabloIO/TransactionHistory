@@ -3,7 +3,12 @@ import { StyleSheet, View } from 'react-native';
 
 const TransactionsLoader = () => {
   return (
-    <View style={style.container}>
+    <View
+      accessible
+      accessibilityRole="progressbar"
+      accessibilityLabel="Loading transactions"
+      style={style.container}
+    >
       <Skeleton
         animation="pulse"
         width={'95%'}

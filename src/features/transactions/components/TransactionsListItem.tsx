@@ -12,7 +12,13 @@ const TransactionListItem = ({
   type,
 }: Transaction) => {
   return (
-    <View>
+    <View
+      accessible
+      accessibilityRole="text"
+      accessibilityLabel={`${merchant}, ${amount} dollars, ${formatTransactionDate(
+        date,
+      )}`}
+    >
       <ListItem bottomDivider>
         <Avatar
           rounded

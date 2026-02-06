@@ -4,7 +4,13 @@ import Animated, { FadeIn } from 'react-native-reanimated';
 
 const TransactionsEmpty = () => {
   return (
-    <Animated.View entering={FadeIn} style={style.container}>
+    <Animated.View
+      accessible
+      accessibilityRole="text"
+      accessibilityLabel="No transactions found"
+      entering={FadeIn}
+      style={style.container}
+    >
       <Text h4 style={style.title}>
         No results for your search. Please try again with other keywords.
       </Text>
