@@ -1,9 +1,14 @@
-import { Skeleton } from '@rneui/themed';
-import React, { useState } from 'react';
+import React, { useCallback, useState } from 'react';
 import { View, StyleSheet } from 'react-native';
 import { useTransactions } from '../hooks/useTransactions';
 import TransactionsLoader from './TransactionsLoader.skeleton';
 import TransactionsError from './TransactionsError.error';
+import { FlashList } from '@shopify/flash-list';
+import TransactionsHeader from './TransactionsHeader';
+import { Transaction } from '../../../models/Transaction';
+import TransactionsEmpty from './TransactionsEmpty';
+
+export type TransactionFilter = 'all' | 'income' | 'expenses';
 
 const TransactionsContainer = () => {
   const {
@@ -13,9 +18,19 @@ const TransactionsContainer = () => {
     isSuccess,
     transactions,
     refetchTransactions,
-  } = useTransactions(true);
+  } = useTransactions(false);
 
-  console.log('TransactionsContainer render', transactions);
+  const [activeFilter, setActiveFilter] = useState<TransactionFilter>('all');
+
+  const renderItem = ({ item }: { item: Transaction }) => {
+    // Placeholder for rendering each transaction item
+    return <View>{/* Render transaction details here */}</View>;
+  };
+
+  const renderHeader = useCallback(
+    () => <TransactionsHeader activeFilter={activeFilter} />,
+    [activeFilter],
+  );
 
   return (
     <View style={style.container}>
@@ -23,7 +38,15 @@ const TransactionsContainer = () => {
       {isError && (
         <TransactionsError refetchTransactions={refetchTransactions} />
       )}
-      {isSuccess && null}
+      {isSuccess && !isLoading && (
+        <FlashList<Transaction>
+          ListHeaderComponent={renderHeader}
+          data={transactions?.data || []}
+          renderItem={renderItem}
+          keyExtractor={(item: Transaction) => item.id}
+          ListEmptyComponent={TransactionsEmpty}
+        />
+      )}
     </View>
   );
 };
